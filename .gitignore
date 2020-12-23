@@ -1,0 +1,10 @@
+/.idea
+/.vscode
+/vendor
+*.log
+.env
+/node_modules
+/public/dist
+/public/fonts
+/public/mix-manifest.json
+composer.lock
