@@ -5,19 +5,8 @@
         <el-form-item label="管理员用户名" prop="username">
           <el-input v-model="adminModel.username" :disabled="id !== null"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <template slot="label">
-            密码
-            <span>
-              <el-tooltip class="item" effect="dark" content="为空则不更新密码" placement="top">
-                <i class="fa fa-question-circle"></i>
-              </el-tooltip>
-            </span>
-          </template>
+        <el-form-item label="密码" prop="password">
           <el-input v-model="adminModel.password"></el-input>
-        </el-form-item>
-        <el-form-item label="是否激活" prop="active">
-          <el-checkbox v-model="adminModel.active" :true-label="1" :false-label="0"></el-checkbox>
         </el-form-item>
         <el-form-item>
           <el-button @click="submitClose">取消</el-button>
@@ -38,15 +27,15 @@
         adminModel: {
           username: '',
           password: '',
-          active: 0,
         },
         adminRules: {
           username: [
             {required: true, message: '请输入管理员用户名', trigger: 'blur'}
           ],
-          password: []
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'}
+          ],
         },
-        role_options: [],
       }
     },
     created() {
@@ -56,21 +45,18 @@
       if (this.$route.params.hasOwnProperty('id')) {
         this.id = this.$route.params.id
         this.getAdmin()
-      } else {
-        this.adminRules.password.push({required: true, message: '请填写密码', trigger: 'blur'})
       }
     },
     methods: {
       getAdmin() {
         let that = this
         that.formLoading = true
-        that.axios.get('/admins/' + that.id).then(res => {
+        that.axios.get('/admin/' + that.id).then(res => {
           that.formLoading = false
           that.adminModel = {
             id: res.id,
             username: res.username,
             password: '',
-            active: res.active ? 1 : 0,
           }
         }).catch(err => {
           that.formLoading = false
@@ -88,7 +74,7 @@
             that.formLoading = false
             return false
           }
-          that.axios.post('/admins', that.adminModel).then(res => {
+          that.axios.post('/admin', that.adminModel).then(res => {
             that.formLoading = false
             that.$message.success('提交成功')
             setTimeout(function () {

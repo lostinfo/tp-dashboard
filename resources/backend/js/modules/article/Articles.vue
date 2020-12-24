@@ -38,7 +38,7 @@
           },
           {
             label: '创建时间',
-            key: 'created_at',
+            key: 'create_time',
           },
         ],
         itemActions: [
@@ -72,7 +72,7 @@
         that[action + 'Action'](item)
       },
       showAction(item) {
-        window.open('/article/' + item.id, '_black')
+        window.open('/admin/article/' + item.id, '_black')
       },
       editAction(item) {
         this.$router.push({path: '/admin/article/' + item.id})

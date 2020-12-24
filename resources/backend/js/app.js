@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import vueAxios from 'vue-axios'
+import {base_api_url} from "./config/app"
 
 Vue.use(vueAxios, axios)
 
@@ -12,7 +13,7 @@ require('../../vendor/js/element.js')
 Vue.axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest'
 }
-Vue.axios.defaults.baseURL = '/api/admin/'
+Vue.axios.defaults.baseURL = base_api_url
 
 import App from './App.vue'
 
@@ -35,7 +36,43 @@ Vue.axios.interceptors.request.use(
 // 响应拦截
 Vue.axios.interceptors.response.use(
   response => {
-    return response.data
+    let code = response.data.code
+    if (code !== 200) {
+      let msg = ''
+      let toLogin = false
+      switch (code) {
+        case 401:
+          msg = '401 Unauthorized'
+          toLogin = true
+          break
+        case 403:
+          msg = '403 Forbidden'
+          break
+        case 404:
+          msg = '404 Not Found'
+          break
+        case 405:
+          msg = '405 Method Not Allowed'
+          break
+        case 422:
+          msg = '422 Unprocessable Entity'
+          break
+        case 500:
+          msg = '500 Server Error'
+          break
+      }
+      if (msg != '') {
+        let message = response.data.msg
+        Vue.prototype.$message.error(message)
+      }
+      if (toLogin) {
+        setTimeout(function () {
+          router.push({path: '/admin/login'})
+        }, 2000)
+      }
+      return Promise.reject(response.data)
+    }
+    return response.data.data
   },
   error => {
     if (error.response) {

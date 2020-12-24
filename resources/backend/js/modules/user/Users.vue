@@ -45,7 +45,7 @@
             v-model="searchModel.more2">
           </el-input>
         </el-form-item>
-        <el-form-item label="注册时间" prop="created_at">
+        <el-form-item label="注册时间" prop="create_time">
           <el-date-picker
             v-model="searchModel.created_at"
             type="datetimerange"
@@ -72,14 +72,15 @@
           age: '',
           more1: '',
           more2: '',
-          created_at: [],
+          create_time: [],
         },
         fields: [
           {
             label: '#',
             key: 'id',
             sortable: true,
-            width: 80
+            width: 80,
+            fixed: 'left',
           },
           {
             label: '头像',
@@ -87,12 +88,14 @@
             width: 80,
             template: avatar => {
               return '<img src="' + avatar + '" style="width: 40px; height: 40px; border-radius: 50%;">'
-            }
+            },
+            fixed: 'left',
           },
           {
-            label: '昵称',
+            label: '姓名',
             key: 'name',
             width: 120,
+            fixed: 'left',
           },
           {
             label: '邮箱',
@@ -116,7 +119,7 @@
           },
           {
             label: '注册时间',
-            key: 'created_at',
+            key: 'create_time',
           },
         ],
         itemActions: [

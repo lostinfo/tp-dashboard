@@ -1,5 +1,6 @@
 import index from './index'
 import user from './user'
+import permission from './permission'
 import article from './article'
 
 export default [
@@ -10,6 +11,7 @@ export default [
     children: [
       ...index,
       ...user,
+      ...permission,
       ...article,
       {
         path: '/admin/404',

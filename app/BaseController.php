@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace app;
 
@@ -36,10 +36,16 @@ abstract class BaseController
      */
     protected $middleware = [];
 
+    protected $page_size;
+
+    protected $order_by_column;
+
+    protected $order_by_direction;
+
     /**
      * 构造方法
      * @access public
-     * @param  App  $app  应用对象
+     * @param App $app 应用对象
      */
     public function __construct(App $app)
     {
@@ -52,15 +58,21 @@ abstract class BaseController
 
     // 初始化
     protected function initialize()
-    {}
+    {
+        $this->page_size = $this->request->get('page_size', 10);
+
+        $this->order_by_column = $this->request->get('order_by_column', 'id');
+
+        $this->order_by_direction = $this->request->get('order_by_direction', 'desc');
+    }
 
     /**
      * 验证数据
      * @access protected
-     * @param  array        $data     数据
-     * @param  string|array $validate 验证器名或者验证规则数组
-     * @param  array        $message  提示信息
-     * @param  bool         $batch    是否批量验证
+     * @param array $data 数据
+     * @param string|array $validate 验证器名或者验证规则数组
+     * @param array $message 提示信息
+     * @param bool $batch 是否批量验证
      * @return array|string|true
      * @throws ValidateException
      */
@@ -90,5 +102,4 @@ abstract class BaseController
 
         return $v->failException(true)->check($data);
     }
-
 }

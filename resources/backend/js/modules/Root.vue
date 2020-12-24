@@ -112,8 +112,7 @@
         } else {
           that.$store.commit('setAdmin', res.admin)
 
-          console.log('菜单',res.admin.menus)
-          // ***动态菜单***
+          // ***静态菜单***
           that.menuGroups = menuGroups
           let path_key = that.defaultActive.replace(/\d+/, '')
           for (let menu_group_index in that.menuGroups) {

@@ -6,7 +6,7 @@
           <el-input v-model="articleModel.title"></el-input>
         </el-form-item>
         <el-form-item label="正文" prop="markdown">
-          <vue-edit ref="editRef" :markdown="articleModel.markdown" :upload-url="'/files/article'" :wrapper-class-name="'article-content'"></vue-edit>
+          <vue-edit ref="editRef" :markdown="articleModel.markdown" :upload-url="'/files/image/article'" :wrapper-class-name="'article-content'"></vue-edit>
         </el-form-item>
         <el-form-item>
           <el-button @click="submitClose">取消</el-button>
@@ -52,7 +52,7 @@
       getArticle() {
         let that = this
         that.formLoading = true
-        that.axios.get('/articles/' + that.id).then(res => {
+        that.axios.get('/article/' + that.id).then(res => {
           that.formLoading = false
           that.articleModel = res
           that.$refs.editRef.setSimplemdeValue(that.articleModel.markdown)
@@ -74,7 +74,7 @@
             that.formLoading = false
             return false
           }
-          that.axios.post('/articles', that.articleModel).then(res => {
+          that.axios.post('/article', that.articleModel).then(res => {
             that.formLoading = false
             that.$message.success('提交成功')
             setTimeout(function () {

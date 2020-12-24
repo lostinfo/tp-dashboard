@@ -42,26 +42,8 @@
             key: 'username',
           },
           {
-            label: '角色',
-            // key: 'roles',
-            template: ({roles}) => {
-              let _template = '<div>'
-              for (let i in roles) {
-                _template += '<span style="' + (i > 0 ? 'margin-left: 10px;' : '') + '" class="el-tag el-tag--small el-tag--danger el-tag--light">' + roles[i].name + '</span>'
-              }
-              _template += '</div>'
-              return _template
-            }
-          },
-          {
-            label: '是否激活',
-            template: ({active}) => {
-              return active ? '是' : '否'
-            }
-          },
-          {
             label: '创建时间',
-            key: 'created_at',
+            key: 'create_time',
           },
         ],
         itemActions: [
@@ -69,17 +51,11 @@
             action: 'edit',
             label: '编辑',
             type: 'primary',
-            showAction: admin => {
-              return !admin.is_supper_admin
-            }
           },
           {
             action: 'delete',
             label: '删除',
             type: 'danger',
-            showAction: admin => {
-              return !admin.is_supper_admin
-            }
           },
         ],
       }

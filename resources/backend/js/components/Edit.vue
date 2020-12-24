@@ -20,7 +20,7 @@
       uploadUrl: {
         type: String,
         default() {
-          return '/upload'
+          return '/files/image/default'
         }
       },
     },

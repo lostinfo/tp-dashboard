@@ -33,10 +33,6 @@ export default [
                 unfolded: true,
                 children: [
                     {
-                        path: '/admin/roles',
-                        name: '角色列表',
-                    },
-                    {
                         path: '/admin/admins',
                         name: '管理员列表',
                     },
